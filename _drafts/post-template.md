@@ -3,6 +3,8 @@ title: 글 제목
 description: 목록에 보일 한 줄 요약
 categories: [projects]   # projects 또는 career
 tags: []
+# featured: true        # 랜딩 "Pinned" 섹션에 고정 (최대 2개)
+# image: /assets/img/cover.png   # 카드 썸네일 (없으면 video 썸네일 사용)
 # video: VIDEO_ID        # 상단 대표 유튜브 영상 (선택)
 ---
 

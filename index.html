@@ -2,13 +2,78 @@
 layout: default
 title: Home
 ---
+{% assign featured = site.posts | where: "featured", true %}
+{% assign recent = site.posts | where_exp: "p", "p.featured != true" %}
+{% assign projects_count = site.categories.projects | size %}
+{% assign career_count = site.categories.career | size %}
+
 <section class="hero">
-  <h1>안녕하세요, {{ site.author }}입니다 👋</h1>
-  <p>만들고 있는 것들과 일하면서 배운 것들을 기록합니다.<br>
-  요즘은 모션캡처 툴을 만들면서 찍은 영상들을 주로 올리고 있어요.</p>
+  <div class="hero-text">
+    <p class="eyebrow mono">// {{ site.hero.eyebrow }}</p>
+    <h1 class="hero-title">{{ site.hero.title }}</h1>
+    <p class="hero-intro">{{ site.hero.intro }}</p>
+    <div class="hero-cta">
+      <a class="btn btn--primary" href="{{ '/projects/' | relative_url }}">프로젝트 보기</a>
+      <a class="btn btn--ghost" href="{{ '/about/' | relative_url }}">About me</a>
+    </div>
+  </div>
+
+  <div class="hero-visual" aria-hidden="true">
+    <div class="viewport">
+      <canvas id="mocap"></canvas>
+      <span class="hud hud--tl mono"><span class="rec-dot"></span>REC&nbsp;&nbsp;TAKE_{{ site.posts.size | prepend: '00' | slice: -3, 3 }}</span>
+      <span class="hud hud--tr mono">60 FPS</span>
+      <span class="hud hud--bl mono" id="timecode">00:00:00:00</span>
+      <span class="hud hud--br mono">17 JOINTS</span>
+    </div>
+  </div>
 </section>
 
-<section>
-  <h2 class="section-title">최근 글</h2>
-  {% include post-list.html posts=site.posts %}
+{% if featured.size > 0 %}
+<section class="section">
+  <header class="section-head">
+    <h2 class="section-title mono"><span class="idx">01</span> Pinned</h2>
+  </header>
+  <div class="featured-grid{% if featured.size == 1 %} featured-grid--single{% endif %}">
+    {% for post in featured limit: 2 %}
+      {% include post-card.html post=post size="lg" %}
+    {% endfor %}
+  </div>
 </section>
+{% endif %}
+
+<section class="section">
+  <header class="section-head">
+    <h2 class="section-title mono"><span class="idx">{% if featured.size > 0 %}02{% else %}01{% endif %}</span> Recent</h2>
+    <a class="more mono" href="{{ '/archive/' | relative_url }}">all posts →</a>
+  </header>
+  {% include post-list.html posts=recent limit=6 %}
+</section>
+
+<section class="section">
+  <header class="section-head">
+    <h2 class="section-title mono"><span class="idx">{% if featured.size > 0 %}03{% else %}02{% endif %}</span> Explore</h2>
+  </header>
+  <div class="explore">
+    <a class="tile tile--projects" href="{{ '/projects/' | relative_url }}">
+      <span class="tile-count mono">{{ projects_count }}</span>
+      <span class="tile-name">Projects</span>
+      <span class="tile-desc">사이드 프로젝트 개발기 · 모캡 영상</span>
+    </a>
+    <a class="tile tile--career" href="{{ '/career/' | relative_url }}">
+      <span class="tile-count mono">{{ career_count }}</span>
+      <span class="tile-name">Career</span>
+      <span class="tile-desc">일하면서 배운 것 · 생각한 것</span>
+    </a>
+    <div class="tile tile--now">
+      <span class="tile-name">Now</span>
+      <ul class="now-list">
+        {% for item in site.now %}
+        <li><span class="mono">{{ item.label }}</span>{{ item.text }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script src="{{ '/assets/js/mocap.js' | relative_url }}" defer></script>

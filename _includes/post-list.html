@@ -1,17 +1,11 @@
-{%- comment -%} include.posts 로 넘긴 글 목록을 렌더링 {%- endcomment -%}
-<ul class="post-list">
-  {% for post in include.posts %}
-  <li>
-    <a class="post-link" href="{{ post.url | relative_url }}">
-      <span class="post-title">{{ post.title }}</span>
-      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y.%m.%d' }}</time>
-    </a>
-    {% if post.description %}<p class="post-desc">{{ post.description }}</p>{% endif %}
-    {% if post.categories.size > 0 %}
-    <div class="tags">{% for c in post.categories %}<span class="tag tag--{{ c }}">{{ c }}</span>{% endfor %}</div>
-    {% endif %}
-  </li>
-  {% else %}
-  <li class="empty">아직 글이 없어요.</li>
+{%- comment -%} 카드 그리드. 파라미터: posts, limit(선택) {%- endcomment -%}
+{% assign lim = include.limit | default: 1000 %}
+{% if include.posts.size > 0 %}
+<div class="card-grid">
+  {% for post in include.posts limit: lim %}
+    {% include post-card.html post=post %}
   {% endfor %}
-</ul>
+</div>
+{% else %}
+<p class="empty mono">// 아직 글이 없어요.</p>
+{% endif %}

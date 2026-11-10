@@ -1,6 +1,6 @@
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <span>© {{ site.time | date: '%Y' }} {{ site.author }}</span>
+    <span class="mono">© {{ site.time | date: '%Y' }} {{ site.author }} — end of take.</span>
     <span class="social">
       {% if site.social.github != "" %}<a href="https://github.com/{{ site.social.github }}">GitHub</a>{% endif %}
       {% if site.social.youtube != "" %}<a href="https://www.youtube.com/{{ site.social.youtube }}">YouTube</a>{% endif %}
@@ -10,3 +10,11 @@
     </span>
   </div>
 </footer>
+<script>
+  document.querySelector('.theme-toggle').addEventListener('click', function () {
+    var root = document.documentElement;
+    var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+</script>

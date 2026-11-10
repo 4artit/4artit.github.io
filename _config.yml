@@ -13,12 +13,32 @@ social:
   linkedin: ""       # 예: "your-id"
   email: ""
 
+# ── 랜딩 페이지 ──────────────────────────────────
+hero:
+  eyebrow: "projects · mocap · career"
+  title: "Hi, I'm ARTITO."
+  intro: >-
+    만들고, 찍고, 기록합니다.
+    요즘은 직접 만든 모션캡처 툴로 이것저것 찍어보면서
+    개발하며 배운 것과 일하면서 생각한 것들을 적고 있어요.
+
+# 랜딩의 "Now" 섹션 — 요즘 하고 있는 것
+now:
+  - label: Building
+    text: 개인 모션캡처 툴
+  - label: Recording
+    text: 모캡 테스트 영상 시리즈
+  - label: Writing
+    text: 커리어 회고
+
 # ── 내비게이션 ───────────────────────────────────
 nav:
   - title: Projects
     url: /projects/
   - title: Career
     url: /career/
+  - title: Archive
+    url: /archive/
   - title: About
     url: /about/
 

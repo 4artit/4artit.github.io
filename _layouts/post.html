@@ -3,15 +3,14 @@ layout: default
 ---
 <article class="post">
   <header class="post-header">
-    {% if page.categories.size > 0 %}
-    <div class="tags">{% for c in page.categories %}<a class="tag tag--{{ c }}" href="{{ '/' | append: c | append: '/' | relative_url }}">{{ c }}</a>{% endfor %}</div>
-    {% endif %}
-    <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y년 %-m월 %-d일' }}</time>
-      {% assign words = content | strip_html | size %}
-      · 약 {{ words | divided_by: 500 | plus: 1 }}분
+    <p class="post-meta mono">
+      {% for c in page.categories %}<a class="tag tag--{{ c }}" href="{{ '/' | append: c | append: '/' | relative_url }}">{{ c }}</a>{% endfor %}
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y.%m.%d' }}</time>
+      {% assign chars = content | strip_html | size %}
+      <span>· {{ chars | divided_by: 500 | plus: 1 }} min read</span>
     </p>
+    <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.description %}<p class="lead">{{ page.description }}</p>{% endif %}
   </header>
 
   {% if page.video %}
@@ -22,8 +21,12 @@ layout: default
     {{ content }}
   </div>
 
+  {% if page.tags.size > 0 %}
+  <div class="post-tags mono">{% for t in page.tags %}<span>#{{ t }}</span>{% endfor %}</div>
+  {% endif %}
+
   <nav class="post-nav">
-    {% if page.previous %}<a href="{{ page.previous.url | relative_url }}">← {{ page.previous.title }}</a>{% else %}<span></span>{% endif %}
-    {% if page.next %}<a href="{{ page.next.url | relative_url }}">{{ page.next.title }} →</a>{% endif %}
+    {% if page.previous %}<a href="{{ page.previous.url | relative_url }}"><span class="mono">← prev</span>{{ page.previous.title }}</a>{% else %}<span></span>{% endif %}
+    {% if page.next %}<a class="next" href="{{ page.next.url | relative_url }}"><span class="mono">next →</span>{{ page.next.title }}</a>{% endif %}
   </nav>
 </article>

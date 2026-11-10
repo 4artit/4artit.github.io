@@ -1,0 +1,22 @@
+---
+layout: page
+title: Archive
+lead: 지금까지 쓴 모든 글.
+permalink: /archive/
+---
+{% assign by_year = site.posts | group_by_exp: "p", "p.date | date: '%Y'" %}
+{% for year in by_year %}
+<section class="archive-year">
+  <h2 class="mono">{{ year.name }} <span class="count">{{ year.items.size }}</span></h2>
+  <ul class="archive-list">
+    {% for post in year.items %}
+    {% assign cat = post.categories | first %}
+    <li>
+      <time class="mono" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%m.%d' }}</time>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      {% if cat %}<span class="tag tag--{{ cat }}">{{ cat }}</span>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}

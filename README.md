@@ -18,6 +18,13 @@
 
 또는 front matter에 `video: VIDEO_ID`를 넣으면 글 상단에 대표 영상으로 들어갑니다.
 
+### 랜딩 페이지
+
+- `featured: true` → 랜딩 "Pinned"에 크게 고정 (최대 2개, Recent에서는 빠짐)
+- 카드 썸네일: `image:` → 없으면 `video:`의 유튜브 썸네일 → 없으면 기본 스켈레톤 그림
+- 히어로 문구와 "Now" 목록은 `_config.yml`의 `hero`, `now`에서 수정
+- 히어로의 걷는 스켈레톤 애니메이션은 `assets/js/mocap.js`
+
 ### 이미지
 
 `assets/img/`에 넣고 `![설명](/assets/img/파일.png)`.

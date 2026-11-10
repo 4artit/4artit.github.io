@@ -2,6 +2,7 @@
 title: "모캡 툴 #1 — 첫 테스트 촬영"
 description: 직접 만든 모션캡처 툴로 처음 찍어본 영상.
 categories: [projects]
+featured: true          # 랜딩 "Pinned"에 노출
 tags: [mocap]
 # 글 상단에 대표 영상을 넣고 싶으면 아래에 유튜브 ID를 적으세요
 # video: VIDEO_ID

@@ -1,0 +1,35 @@
+{%- comment -%}
+  카드 하나. 파라미터: post, size ("lg" | 기본)
+  썸네일 우선순위: front matter image → video(유튜브 썸네일) → 기본 패턴
+{%- endcomment -%}
+{%- assign p = include.post -%}
+{%- assign thumb = "" -%}
+{%- if p.image -%}
+  {%- assign thumb = p.image | relative_url -%}
+{%- elsif p.video -%}
+  {%- capture thumb -%}https://i.ytimg.com/vi/{{ p.video }}/hqdefault.jpg{%- endcapture -%}
+{%- endif -%}
+{%- assign cat = p.categories | first -%}
+<a class="card{% if include.size == 'lg' %} card--lg{% endif %}" href="{{ p.url | relative_url }}">
+  <div class="card-media{% if thumb == '' %} card-media--empty{% endif %}">
+    {% if thumb != "" %}
+      <img src="{{ thumb }}" alt="" loading="lazy">
+    {% else %}
+      <svg class="media-fig" viewBox="0 0 60 100" width="44" height="74" aria-hidden="true">
+        <g class="bones"><path d="M30 20V50M20 22H40M20 22L14 36L12 50M40 22L46 34L50 46M25 50H35M25 50L22 70L20 90M35 50L40 68L44 88"/></g>
+        <g class="joints"><circle cx="30" cy="20" r="2.4"/><circle cx="20" cy="22" r="2.4"/><circle cx="40" cy="22" r="2.4"/><circle cx="14" cy="36" r="2.4"/><circle cx="46" cy="34" r="2.4"/><circle cx="12" cy="50" r="2.4"/><circle cx="50" cy="46" r="2.4"/><circle cx="30" cy="50" r="2.4"/><circle cx="25" cy="50" r="2.4"/><circle cx="35" cy="50" r="2.4"/><circle cx="22" cy="70" r="2.4"/><circle cx="40" cy="68" r="2.4"/><circle cx="20" cy="90" r="2.4"/><circle cx="44" cy="88" r="2.4"/></g>
+        <circle class="head" cx="30" cy="9" r="5"/>
+      </svg>
+      <span class="media-label mono">{{ cat | default: 'post' }}</span>
+    {% endif %}
+    {% if p.video %}<span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>{% endif %}
+  </div>
+  <div class="card-body">
+    <div class="card-meta mono">
+      {% if cat %}<span class="tag tag--{{ cat }}">{{ cat }}</span>{% endif %}
+      <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: '%Y.%m.%d' }}</time>
+    </div>
+    <h3 class="card-title">{{ p.title }}</h3>
+    {% if p.description %}<p class="card-desc">{{ p.description }}</p>{% endif %}
+  </div>
+</a>
