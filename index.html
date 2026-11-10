@@ -1,0 +1,14 @@
+---
+layout: default
+title: Home
+---
+<section class="hero">
+  <h1>안녕하세요, {{ site.author }}입니다 👋</h1>
+  <p>만들고 있는 것들과 일하면서 배운 것들을 기록합니다.<br>
+  요즘은 모션캡처 툴을 만들면서 찍은 영상들을 주로 올리고 있어요.</p>
+</section>
+
+<section>
+  <h2 class="section-title">최근 글</h2>
+  {% include post-list.html posts=site.posts %}
+</section>

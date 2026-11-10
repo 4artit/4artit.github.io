@@ -1,0 +1,29 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    {% if page.categories.size > 0 %}
+    <div class="tags">{% for c in page.categories %}<a class="tag tag--{{ c }}" href="{{ '/' | append: c | append: '/' | relative_url }}">{{ c }}</a>{% endfor %}</div>
+    {% endif %}
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y년 %-m월 %-d일' }}</time>
+      {% assign words = content | strip_html | size %}
+      · 약 {{ words | divided_by: 500 | plus: 1 }}분
+    </p>
+  </header>
+
+  {% if page.video %}
+    {% include youtube.html id=page.video title=page.title %}
+  {% endif %}
+
+  <div class="content">
+    {{ content }}
+  </div>
+
+  <nav class="post-nav">
+    {% if page.previous %}<a href="{{ page.previous.url | relative_url }}">← {{ page.previous.title }}</a>{% else %}<span></span>{% endif %}
+    {% if page.next %}<a href="{{ page.next.url | relative_url }}">{{ page.next.title }} →</a>{% endif %}
+  </nav>
+</article>

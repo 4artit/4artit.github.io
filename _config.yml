@@ -1,0 +1,49 @@
+# ── 사이트 기본 정보 ─────────────────────────────
+title: ARTITO
+description: 개인 프로젝트와 커리어 이야기를 적는 블로그
+author: ARTITO
+lang: ko
+url: "https://4artit.github.io"
+baseurl: ""
+
+# 소셜 링크 (비워두면 표시 안 됨)
+social:
+  github: 4artit
+  youtube: ""        # 예: "@yourchannel"
+  linkedin: ""       # 예: "your-id"
+  email: ""
+
+# ── 내비게이션 ───────────────────────────────────
+nav:
+  - title: Projects
+    url: /projects/
+  - title: Career
+    url: /career/
+  - title: About
+    url: /about/
+
+# ── 빌드 설정 (GitHub Pages 기본 Jekyll) ──────────
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+permalink: /:year/:month/:title/
+timezone: Asia/Seoul
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
